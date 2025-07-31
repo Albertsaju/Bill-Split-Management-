@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 // Adjust this URL to your actual backend registration endpoint
-                const response = await fetch('/register', {
+                const response = await fetch('/register/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

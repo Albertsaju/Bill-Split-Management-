@@ -7,7 +7,6 @@
     <title>BillSplit – Register</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'testapp/css/style.css' %}">    
-    
 </head>
 <body>
     <header class="hero register-hero">
@@ -16,22 +15,15 @@
             <p>Create an account to start managing your group expenses effortlessly.</p>
         </div>
     </header>
-<!-- Registration Form Section -->
-
+    <!-- Registration Form Section -->
     <main class="register-container">
         <div class="register-form-card">
             <h2>Register</h2>
-            {% if errors %}
-                <div class="form-errors">
-                    <ul>`
-                        {% for error in errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+            <div id="form-errors" class="form-errors" style="display:none;">
+                <ul id="error-list"></ul>
+            </div>
             <!-- Registration Form starts here-->
-            <form id="registrationForm" action="{% url 'register' %}" method="POST">
+            <form id="registrationForm" action="javascript:void(0);" method="POST" autocomplete="off">
                 <!-- username -->
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -59,10 +51,9 @@
             <p class="login-link">Already have an account? <a href="/login.html">Log in here</a></p>
         </div>
     </main>
-
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 BillSplit. All rights reserved.</a></p>
+            <p>&copy; 2025 BillSplit. All rights reserved.</p>
         </div>
     </footer>
     <script src="{% static 'testapp/js/register.js' %}" defer></script> 

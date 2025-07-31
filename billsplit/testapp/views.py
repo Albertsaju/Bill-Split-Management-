@@ -1,22 +1,25 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
-# Create your views here.
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def index(request):
     return render(request, 'testapp/index.html')
 
 
+@csrf_exempt
 def register(request):
-    context = {}
-    if request.method == 'POST':
-        username = request.POST.get('username', '').strip()
-        email = request.POST.get('email', '').strip()
-        password = request.POST.get('password', '')
-        confirm_password = request.POST.get('confirm-password', '')
+    if request.method == 'POST' and request.content_type == 'application/json':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+        except Exception:
+            return JsonResponse({'message': 'Invalid JSON.'}, status=400)
 
-        # Basic validation
+        username = data.get('username', '').strip()
+        email = data.get('email', '').strip()
+        password = data.get('password', '')
+
+
         errors = []
         if not username:
             errors.append('Username is required.')
@@ -24,13 +27,9 @@ def register(request):
             errors.append('Email is required.')
         if not password:
             errors.append('Password is required.')
-        if password != confirm_password:
-            errors.append('Passwords do not match.')
 
         if errors:
-            context['errors'] = errors
-            context['username'] = username
-            context['email'] = email
-        else:
-            print("success")
-    return render(request, 'testapp/register.html', context)
+            return JsonResponse({'message': errors[0]}, status=400)
+        return JsonResponse({'message': 'Registration successful!'}, status=201)
+
+    return render(request, 'testapp/register.html')
