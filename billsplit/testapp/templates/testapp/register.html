@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BillSplit – Register</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'testsapp/css/style.css' %}">    
+    <link rel="stylesheet" href="{% static 'testapp/css/style.css' %}">    
     
 </head>
 <body>
@@ -21,8 +21,17 @@
     <main class="register-container">
         <div class="register-form-card">
             <h2>Register</h2>
+            {% if errors %}
+                <div class="form-errors">
+                    <ul>`
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             <!-- Registration Form starts here-->
-            <form id="registrationForm" action="/api/register" method="POST">
+            <form id="registrationForm" action="{% url 'register' %}" method="POST">
                 <!-- username -->
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -56,6 +65,6 @@
             <p>&copy; 2025 BillSplit. All rights reserved.</a></p>
         </div>
     </footer>
-    <script src="{% static 'testsapp/js/register.js' %}" defer></script> 
+    <script src="{% static 'testapp/js/register.js' %}" defer></script> 
 </body>
 </html>
